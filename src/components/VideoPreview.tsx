@@ -305,7 +305,7 @@ export const VideoPreview = ({
 
   if (!videoUrl) {
     return (
-      <div className="bg-white rounded-lg shadow-sm p-12 text-center">
+      <div className="rounded-lg bg-white p-12 text-center shadow-sm transition-colors dark:bg-gray-800">
         <svg
           className="mx-auto h-16 w-16 text-gray-400"
           fill="none"
@@ -319,14 +319,14 @@ export const VideoPreview = ({
             d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
           />
         </svg>
-        <p className="mt-4 text-sm text-gray-500">Upload a video to preview</p>
+        <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">Upload a video to preview</p>
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Preview</h3>
+    <div className="rounded-lg bg-white p-6 shadow-sm transition-colors dark:bg-gray-800">
+      <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-gray-100">Preview</h3>
       <div
         ref={containerRef}
         className="relative rounded-lg overflow-hidden flex items-center justify-center bg-black cursor-pointer"
@@ -354,8 +354,8 @@ export const VideoPreview = ({
 
         {/* Loading Overlay */}
         {!watermarkImg && watermarkFile && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-lg">
-            <p className="text-white text-sm">Loading watermark...</p>
+          <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-black bg-opacity-50">
+            <p className="text-sm text-white">Loading watermark...</p>
           </div>
         )}
 

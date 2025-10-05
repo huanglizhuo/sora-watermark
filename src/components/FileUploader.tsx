@@ -125,10 +125,10 @@ export const FileUploader = ({
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
       {/* Video Upload */}
       <div
-        className="border-2 border-dashed border-gray-300 rounded-lg overflow-hidden hover:border-blue-500 transition-colors cursor-pointer bg-white"
+        className="cursor-pointer overflow-hidden rounded-lg border-2 border-dashed border-gray-300 bg-white transition-colors hover:border-blue-500 dark:border-gray-600 dark:bg-gray-800"
         onDrop={handleVideoDrop}
         onDragOver={preventDefaults}
         onDragEnter={preventDefaults}
@@ -144,21 +144,21 @@ export const FileUploader = ({
         {videoPreview ? (
           <div className="flex items-center gap-4 p-3">
             {/* Video Thumbnail - Square */}
-            <div className="flex-shrink-0 w-24 h-24 bg-gray-900 rounded overflow-hidden flex items-center justify-center">
+            <div className="flex h-24 w-24 flex-shrink-0 items-center justify-center overflow-hidden rounded bg-gray-900">
               <video
                 src={videoPreview}
-                className="w-full h-full object-contain"
+                className="h-full w-full object-contain"
                 muted
               />
             </div>
             {/* Video Info */}
-            <div className="flex-1 min-w-0 flex flex-col justify-center space-y-1">
-              <p className="text-sm font-medium text-gray-900 truncate">{videoFile?.name}</p>
-              <p className="text-xs text-gray-500">{videoFile && formatFileSize(videoFile.size)}</p>
+            <div className="flex min-w-0 flex-1 flex-col justify-center space-y-1">
+              <p className="truncate text-sm font-medium text-gray-900 dark:text-gray-100">{videoFile?.name}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">{videoFile && formatFileSize(videoFile.size)}</p>
               {videoDuration > 0 && (
-                <p className="text-xs text-gray-500">Duration: {formatDuration(videoDuration)}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Duration: {formatDuration(videoDuration)}</p>
               )}
-              <p className="text-xs text-blue-600 italic mt-1">Click or drag & drop to replace</p>
+              <p className="mt-1 text-xs italic text-blue-600 dark:text-blue-400">Click or drag & drop to replace</p>
             </div>
           </div>
         ) : (
@@ -177,17 +177,17 @@ export const FileUploader = ({
                 strokeLinejoin="round"
               />
             </svg>
-            <div className="text-xs text-gray-600">
-              <span className="font-semibold text-blue-600">Click to upload</span> or drag and drop
+            <div className="text-xs text-gray-600 dark:text-gray-300">
+              <span className="font-semibold text-blue-600 dark:text-blue-400">Click to upload</span> or drag and drop
             </div>
-            <p className="text-xs text-gray-500">MP4, WebM, MOV up to 500MB</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">MP4, WebM, MOV up to 500MB</p>
           </div>
         )}
       </div>
 
       {/* Watermark Upload */}
       <div
-        className="border-2 border-dashed border-gray-300 rounded-lg overflow-hidden hover:border-blue-500 transition-colors cursor-pointer bg-white"
+        className="cursor-pointer overflow-hidden rounded-lg border-2 border-dashed border-gray-300 bg-white transition-colors hover:border-blue-500 dark:border-gray-600 dark:bg-gray-800"
         onDrop={handleWatermarkDrop}
         onDragOver={preventDefaults}
         onDragEnter={preventDefaults}
@@ -203,18 +203,18 @@ export const FileUploader = ({
         {watermarkPreview ? (
           <div className="flex items-center gap-4 p-3">
             {/* Watermark Thumbnail - Square */}
-            <div className="flex-shrink-0 w-24 h-24 bg-gray-100 rounded overflow-hidden flex items-center justify-center">
+            <div className="flex h-24 w-24 flex-shrink-0 items-center justify-center overflow-hidden rounded bg-gray-100 dark:bg-gray-700">
               <img
                 src={watermarkPreview}
                 alt="Watermark preview"
-                className="max-w-full max-h-full object-contain p-2"
+                className="max-h-full max-w-full object-contain p-2"
               />
             </div>
             {/* Watermark Info */}
-            <div className="flex-1 min-w-0 flex flex-col justify-center space-y-1">
-              <p className="text-sm font-medium text-gray-900 truncate">{watermarkFile?.name}</p>
-              <p className="text-xs text-gray-500">{watermarkFile && formatFileSize(watermarkFile.size)}</p>
-              <p className="text-xs text-blue-600 italic mt-1">Click or drag & drop to replace</p>
+            <div className="flex min-w-0 flex-1 flex-col justify-center space-y-1">
+              <p className="truncate text-sm font-medium text-gray-900 dark:text-gray-100">{watermarkFile?.name}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">{watermarkFile && formatFileSize(watermarkFile.size)}</p>
+              <p className="mt-1 text-xs italic text-blue-600 dark:text-blue-400">Click or drag & drop to replace</p>
             </div>
           </div>
         ) : (
@@ -233,10 +233,10 @@ export const FileUploader = ({
                 strokeLinejoin="round"
               />
             </svg>
-            <div className="text-xs text-gray-600">
-              <span className="font-semibold text-blue-600">Click to upload</span> or drag and drop
+            <div className="text-xs text-gray-600 dark:text-gray-300">
+              <span className="font-semibold text-blue-600 dark:text-blue-400">Click to upload</span> or drag and drop
             </div>
-            <p className="text-xs text-gray-500">PNG, JPG, WebP, SVG</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">PNG, JPG, WebP, SVG</p>
           </div>
         )}
       </div>

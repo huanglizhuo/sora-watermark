@@ -19,16 +19,16 @@ export const WatermarkConfigPanel = ({ config, onChange }: WatermarkConfigProps)
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm p-6 space-y-6">
-      <h3 className="text-lg font-semibold text-gray-900">Watermark Settings</h3>
+    <div className="space-y-6 rounded-lg bg-white p-6 shadow-sm transition-colors dark:bg-gray-800">
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Watermark Settings</h3>
 
       {/* Opacity Control */}
       <div className="space-y-2">
-        <div className="flex justify-between items-center">
-          <label htmlFor="opacity" className="text-sm font-medium text-gray-700">
+        <div className="flex items-center justify-between">
+          <label htmlFor="opacity" className="text-sm font-medium text-gray-700 dark:text-gray-300">
             Opacity
           </label>
-          <span className="text-sm text-gray-500">{config.opacity}%</span>
+          <span className="text-sm text-gray-500 dark:text-gray-400">{config.opacity}%</span>
         </div>
         <input
           id="opacity"
@@ -38,17 +38,17 @@ export const WatermarkConfigPanel = ({ config, onChange }: WatermarkConfigProps)
           step="5"
           value={config.opacity}
           onChange={handleOpacityChange}
-          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+          className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 accent-blue-600 dark:bg-gray-700"
         />
       </div>
 
       {/* Scale Control */}
       <div className="space-y-2">
-        <div className="flex justify-between items-center">
-          <label htmlFor="scale" className="text-sm font-medium text-gray-700">
+        <div className="flex items-center justify-between">
+          <label htmlFor="scale" className="text-sm font-medium text-gray-700 dark:text-gray-300">
             Size
           </label>
-          <span className="text-sm text-gray-500">{Math.round(config.scale * 100)}%</span>
+          <span className="text-sm text-gray-500 dark:text-gray-400">{Math.round(config.scale * 100)}%</span>
         </div>
         <input
           id="scale"
@@ -58,17 +58,17 @@ export const WatermarkConfigPanel = ({ config, onChange }: WatermarkConfigProps)
           step="0.05"
           value={config.scale}
           onChange={handleScaleChange}
-          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+          className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 accent-blue-600 dark:bg-gray-700"
         />
       </div>
 
       {/* Loop Control */}
       <div className="flex items-center justify-between">
         <div>
-          <label htmlFor="loop" className="text-sm font-medium text-gray-700">
+          <label htmlFor="loop" className="text-sm font-medium text-gray-700 dark:text-gray-300">
             Loop Position Sequence
           </label>
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
             Repeat the position timeline throughout the entire video
           </p>
         </div>
@@ -77,7 +77,7 @@ export const WatermarkConfigPanel = ({ config, onChange }: WatermarkConfigProps)
           type="checkbox"
           checked={config.loop}
           onChange={handleLoopChange}
-          className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
+          className="h-4 w-4 cursor-pointer rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600"
         />
       </div>
     </div>

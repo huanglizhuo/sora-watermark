@@ -31,18 +31,18 @@ export const PositionTimeline = ({ segments, onChange }: PositionTimelineProps) 
   const totalDuration = calculateTotalDuration(segments);
 
   return (
-    <div className="bg-white rounded-lg shadow-sm p-6 space-y-4">
+    <div className="space-y-4 rounded-lg bg-white p-6 shadow-sm transition-colors dark:bg-gray-800">
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-lg font-semibold text-gray-900">Position Timeline</h3>
-          <p className="text-sm text-gray-500 mt-1">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Position Timeline</h3>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
             Define watermark positions and durations
             {segments.length > 0 && ` • Total: ${totalDuration.toFixed(1)}s`}
           </p>
         </div>
         <button
           onClick={handleAddSegment}
-          className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors"
+          className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
         >
           + Add Segment
         </button>
@@ -50,7 +50,7 @@ export const PositionTimeline = ({ segments, onChange }: PositionTimelineProps) 
 
       {/* Segments List */}
       {segments.length === 0 ? (
-        <div className="text-center py-12 border-2 border-dashed border-gray-300 rounded-lg">
+        <div className="rounded-lg border-2 border-dashed border-gray-300 py-12 text-center dark:border-gray-600">
           <svg
             className="mx-auto h-12 w-12 text-gray-400"
             fill="none"
@@ -64,7 +64,7 @@ export const PositionTimeline = ({ segments, onChange }: PositionTimelineProps) 
               d="M12 6v6m0 0v6m0-6h6m-6 0H6"
             />
           </svg>
-          <p className="mt-2 text-sm text-gray-500">No segments yet. Click "Add Segment" to start.</p>
+          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">No segments yet. Click "Add Segment" to start.</p>
         </div>
       ) : (
         <div className="space-y-3">
@@ -82,14 +82,14 @@ export const PositionTimeline = ({ segments, onChange }: PositionTimelineProps) 
 
       {/* Timeline Visualization */}
       {segments.length > 0 && (
-        <div className="pt-4 border-t border-gray-200">
+        <div className="border-t border-gray-200 pt-4 dark:border-gray-700">
           <div className="flex items-center space-x-2">
-            <span className="text-xs font-medium text-gray-700">Sequence:</span>
-            <div className="flex-1 flex items-center space-x-1 overflow-x-auto">
+            <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Sequence:</span>
+            <div className="flex flex-1 items-center space-x-1 overflow-x-auto">
               {segments.map((segment) => (
                 <div
                   key={segment.id}
-                  className="flex-shrink-0 px-3 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded"
+                  className="flex-shrink-0 rounded bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800 dark:bg-blue-900/40 dark:text-blue-200"
                   style={{ minWidth: `${(segment.duration / totalDuration) * 100}px` }}
                 >
                   {segment.position.preset} ({segment.duration}s)

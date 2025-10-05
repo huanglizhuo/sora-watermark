@@ -56,12 +56,12 @@ export const PositionSegment = ({ segment, index, onChange, onDelete }: Position
   };
 
   return (
-    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 space-y-3">
+    <div className="space-y-3 rounded-lg border border-gray-200 bg-gray-50 p-4 transition-colors dark:border-gray-700 dark:bg-gray-900/40">
       <div className="flex items-center justify-between">
-        <span className="text-sm font-medium text-gray-700">Segment {index + 1}</span>
+        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Segment {index + 1}</span>
         <button
           onClick={onDelete}
-          className="text-red-600 hover:text-red-800 text-sm font-medium"
+          className="text-sm font-medium text-red-600 transition-colors hover:text-red-500 dark:text-red-400 dark:hover:text-red-300"
         >
           Delete
         </button>
@@ -70,11 +70,11 @@ export const PositionSegment = ({ segment, index, onChange, onDelete }: Position
       <div className="grid grid-cols-2 gap-3">
         {/* Position Selector */}
         <div>
-          <label className="block text-xs font-medium text-gray-700 mb-1">Position</label>
+          <label className="mb-1 block text-xs font-medium text-gray-700 dark:text-gray-300">Position</label>
           <select
             value={segment.position.preset}
             onChange={handlePositionChange}
-            className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+            className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
           >
             {POSITION_PRESETS.map((preset) => (
               <option key={preset.value} value={preset.value}>
@@ -86,23 +86,23 @@ export const PositionSegment = ({ segment, index, onChange, onDelete }: Position
 
         {/* Duration */}
         <div>
-          <label className="block text-xs font-medium text-gray-700 mb-1">Duration (s)</label>
+          <label className="mb-1 block text-xs font-medium text-gray-700 dark:text-gray-300">Duration (s)</label>
           <input
             type="number"
             min="0.1"
             step="0.1"
             value={segment.duration}
             onChange={handleDurationChange}
-            className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+            className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
           />
         </div>
       </div>
 
       {/* Custom Position Inputs */}
       {segment.position.preset === 'custom' && (
-        <div className="grid grid-cols-2 gap-3 pt-2 border-t border-gray-200">
+        <div className="grid grid-cols-2 gap-3 border-t border-gray-200 pt-2 dark:border-gray-700">
           <div>
-            <label className="block text-xs font-medium text-gray-700 mb-1">X (%)</label>
+            <label className="mb-1 block text-xs font-medium text-gray-700 dark:text-gray-300">X (%)</label>
             <input
               type="number"
               min="0"
@@ -110,11 +110,11 @@ export const PositionSegment = ({ segment, index, onChange, onDelete }: Position
               step="1"
               value={segment.position.x || 0}
               onChange={handleCustomXChange}
-              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-gray-700 mb-1">Y (%)</label>
+            <label className="mb-1 block text-xs font-medium text-gray-700 dark:text-gray-300">Y (%)</label>
             <input
               type="number"
               min="0"
@@ -122,7 +122,7 @@ export const PositionSegment = ({ segment, index, onChange, onDelete }: Position
               step="1"
               value={segment.position.y || 0}
               onChange={handleCustomYChange}
-              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
             />
           </div>
         </div>

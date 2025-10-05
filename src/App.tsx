@@ -4,10 +4,28 @@ import { WatermarkConfigPanel } from './components/WatermarkConfig';
 import { PositionTimeline } from './components/PositionTimeline';
 import { VideoPreview } from './components/VideoPreview';
 import { ProcessingStatus } from './components/ProcessingStatus';
+import { ThemeToggle, ThemePreference, ResolvedTheme } from './components/ThemeToggle';
 import { useFFmpeg } from './hooks/useFFmpeg';
 import { WatermarkConfig, VideoMetadata } from './types/watermark';
 import { getVideoMetadata } from './utils/ffmpegConfig';
 import { generateSegmentId } from './utils/timelineHelper';
+
+const THEME_STORAGE_KEY = 'theme-preference';
+
+const getStoredThemePreference = (): ThemePreference => {
+  if (typeof window === 'undefined') {
+    return 'system';
+  }
+  const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
+  return stored === 'light' || stored === 'dark' ? (stored as ThemePreference) : 'system';
+};
+
+const getSystemColorScheme = (): ResolvedTheme => {
+  if (typeof window === 'undefined') {
+    return 'light';
+  }
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+};
 
 function App() {
   const [videoFile, setVideoFile] = useState<File | null>(null);
@@ -16,6 +34,8 @@ function App() {
   const [videoMetadata, setVideoMetadata] = useState<VideoMetadata | null>(null);
   const [outputBlob, setOutputBlob] = useState<Blob | null>(null);
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [theme, setTheme] = useState<ThemePreference>(getStoredThemePreference);
+  const [systemTheme, setSystemTheme] = useState<ResolvedTheme>(getSystemColorScheme);
 
   // Default configuration with pre-configured segments
   const [config, setConfig] = useState<WatermarkConfig>({
@@ -113,20 +133,73 @@ function App() {
     }
   }, [outputBlob, status]);
 
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (event: MediaQueryListEvent) => {
+      setSystemTheme(event.matches ? 'dark' : 'light');
+    };
+
+    // Ensure state reflects latest system preference
+    setSystemTheme(mediaQuery.matches ? 'dark' : 'light');
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  const resolvedTheme: ResolvedTheme = theme === 'system' ? systemTheme : theme;
+
+  useEffect(() => {
+    if (typeof document === 'undefined') {
+      return;
+    }
+    const root = document.documentElement;
+    root.classList.toggle('dark', resolvedTheme === 'dark');
+  }, [resolvedTheme]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    if (theme === 'system') {
+      window.localStorage.removeItem(THEME_STORAGE_KEY);
+    } else {
+      window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+    }
+  }, [theme]);
+
+  const handleThemeToggle = () => {
+    setTheme((current) => {
+      if (current === 'system') return 'light';
+      if (current === 'light') return 'dark';
+      return 'system';
+    });
+  };
+
   const canProcess = videoFile && watermarkFile && config.segments.length > 0 && loaded && status !== 'processing';
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 py-8 transition-colors duration-300 dark:bg-gray-900">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900">Video Watermark Tool</h1>
-          <p className="mt-2 text-lg text-gray-600">
-            Add animated watermarks to your videos - 100% client-side processing
-          </p>
-          {!loaded && status === 'loading' && (
-            <p className="mt-2 text-sm text-blue-600">Loading FFmpeg...</p>
-          )}
+        <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+          <div className="text-center md:text-left">
+            <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">Video Watermark Tool</h1>
+            <p className="mt-2 text-lg text-gray-600 dark:text-gray-300">
+              Add animated watermarks to your videos - 100% client-side processing
+            </p>
+            {!loaded && status === 'loading' && (
+              <p className="mt-2 text-sm text-blue-600 dark:text-blue-400">Loading FFmpeg...</p>
+            )}
+          </div>
+          <div className="flex justify-center md:justify-end">
+            <ThemeToggle
+              theme={theme}
+              resolvedTheme={resolvedTheme}
+              onToggle={handleThemeToggle}
+            />
+          </div>
         </div>
 
         <div className="space-y-6">
@@ -150,10 +223,10 @@ function App() {
               />
 
               {/* Advanced Settings Toggle */}
-              <div className="bg-white rounded-lg shadow-sm p-4">
+              <div className="rounded-lg bg-white p-4 shadow-sm transition-colors dark:bg-gray-800">
                 <button
                   onClick={() => setShowAdvanced(!showAdvanced)}
-                  className="flex items-center justify-between w-full text-left"
+                  className="flex w-full items-center justify-between text-left"
                 >
                   <div className="flex items-center space-x-2">
                     <svg
@@ -171,9 +244,9 @@ function App() {
                         d="M9 5l7 7-7 7"
                       />
                     </svg>
-                    <span className="text-lg font-semibold text-gray-900">Advanced Settings</span>
+                    <span className="text-lg font-semibold text-gray-900 dark:text-gray-100">Advanced Settings</span>
                   </div>
-                  <span className="text-sm text-gray-500">
+                  <span className="text-sm text-gray-500 dark:text-gray-400">
                     {showAdvanced ? 'Hide' : 'Show'} position timeline & watermark settings
                   </span>
                 </button>
@@ -181,7 +254,7 @@ function App() {
 
               {/* Advanced Settings Content */}
               {showAdvanced && (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                   <PositionTimeline
                     segments={config.segments}
                     onChange={(segments) => setConfig({ ...config, segments })}
@@ -191,11 +264,11 @@ function App() {
               )}
 
               {/* Processing Controls */}
-              <div className="bg-white rounded-lg shadow-sm p-6">
+              <div className="rounded-lg bg-white p-6 shadow-sm transition-colors dark:bg-gray-800">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900">Process Video</h3>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Process Video</h3>
+                    <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                       Apply watermark to your video with the configured settings
                     </p>
                   </div>
@@ -206,7 +279,7 @@ function App() {
                       className={`px-6 py-3 rounded-md font-medium transition-colors ${
                         canProcess
                           ? 'bg-blue-600 text-white hover:bg-blue-700'
-                          : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                          : 'cursor-not-allowed bg-gray-300 text-gray-500 dark:bg-gray-700 dark:text-gray-400'
                       }`}
                     >
                       Process Video
@@ -214,7 +287,7 @@ function App() {
                     {outputBlob && status === 'completed' && (
                       <button
                         onClick={handleDownload}
-                        className="px-6 py-3 bg-green-600 text-white rounded-md font-medium hover:bg-green-700 transition-colors"
+                        className="rounded-md bg-green-600 px-6 py-3 font-medium text-white transition-colors hover:bg-green-700"
                       >
                         Download Result
                       </button>
@@ -229,9 +302,9 @@ function App() {
           )}
 
           {/* Info Section */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-            <h3 className="text-sm font-semibold text-blue-900 mb-2">How it works</h3>
-            <ul className="text-sm text-blue-800 space-y-1 list-disc list-inside">
+          <div className="rounded-lg border border-blue-200 bg-blue-50 p-6 transition-colors dark:border-blue-900/50 dark:bg-blue-950/40">
+            <h3 className="mb-2 text-sm font-semibold text-blue-900 dark:text-blue-300">How it works</h3>
+            <ul className="list-inside list-disc space-y-1 text-sm text-blue-800 dark:text-blue-200/90">
               <li>Upload your video (watermark is pre-loaded with default Sora logo)</li>
               <li>Default animation: top-left 2s → middle-right 2s → bottom-left 2s (looped)</li>
               <li>Click "Advanced Settings" to customize position timeline and watermark settings</li>
