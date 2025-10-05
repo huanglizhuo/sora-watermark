@@ -1,0 +1,9 @@
+name = "sora-watermark"
+compatibility_date = "2024-06-30"
+workers_dev = true
+
+[build]
+command = "npm run build"
+
+[assets]
+directory = "./dist"
