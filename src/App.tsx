@@ -185,7 +185,7 @@ function App() {
         {/* Header */}
         <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
           <div className="text-center md:text-left">
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">Video Watermark Tool</h1>
+            <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">Watermark Tool</h1>
             <p className="mt-2 text-lg text-gray-600 dark:text-gray-300">
               Add animated watermarks to your videos - 100% client-side processing
             </p>
@@ -230,9 +230,8 @@ function App() {
                 >
                   <div className="flex items-center space-x-2">
                     <svg
-                      className={`h-5 w-5 text-gray-500 transition-transform ${
-                        showAdvanced ? 'rotate-90' : ''
-                      }`}
+                      className={`h-5 w-5 text-gray-500 transition-transform ${showAdvanced ? 'rotate-90' : ''
+                        }`}
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -276,11 +275,10 @@ function App() {
                     <button
                       onClick={handleProcess}
                       disabled={!canProcess}
-                      className={`px-6 py-3 rounded-md font-medium transition-colors ${
-                        canProcess
+                      className={`px-6 py-3 rounded-md font-medium transition-colors ${canProcess
                           ? 'bg-blue-600 text-white hover:bg-blue-700'
                           : 'cursor-not-allowed bg-gray-300 text-gray-500 dark:bg-gray-700 dark:text-gray-400'
-                      }`}
+                        }`}
                     >
                       Process Video
                     </button>

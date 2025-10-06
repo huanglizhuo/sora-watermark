@@ -148,7 +148,6 @@ export const FileUploader = ({
               <video
                 src={videoPreview}
                 className="h-full w-full object-contain"
-                muted
               />
             </div>
             {/* Video Info */}

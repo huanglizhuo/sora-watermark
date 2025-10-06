@@ -25,9 +25,9 @@ export const VideoPreview = ({
     height: 'auto',
   });
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
   const [showControls, setShowControls] = useState(false);
-  const [volume, setVolume] = useState(0);
+  const [volume, setVolume] = useState(1);
   const [previousVolume, setPreviousVolume] = useState(1);
   const animationFrameRef = useRef<number>();
   const controlsTimeoutRef = useRef<number>();
@@ -129,7 +129,11 @@ export const VideoPreview = ({
       ctx.globalAlpha = 1.0;
     }
 
-    animationFrameRef.current = requestAnimationFrame(drawFrame);
+    if (!video.paused && !video.ended) {
+      animationFrameRef.current = requestAnimationFrame(drawFrame);
+    } else {
+      animationFrameRef.current = undefined;
+    }
   };
 
   // Start/stop animation
@@ -172,19 +176,22 @@ export const VideoPreview = ({
     }
   }, [watermarkImg, config]);
 
-  // Auto-play video when both video and watermark are ready
+  // Ensure video defaults to an audible state when loaded
   useEffect(() => {
     const video = videoRef.current;
 
-    if (video && watermarkImg && video.readyState >= 2) {
-      video.muted = true;
-      video.play().then(() => {
-        setIsPlaying(true);
-      }).catch((error) => {
-        console.log('Auto-play failed:', error);
-      });
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+      video.muted = false;
+      video.volume = 1;
     }
-  }, [watermarkImg]);
+
+    setIsPlaying(false);
+    setIsMuted(false);
+    setVolume(1);
+    setPreviousVolume(1);
+  }, [videoUrl]);
 
   // Toggle play/pause
   const togglePlayPause = () => {
@@ -340,7 +347,6 @@ export const VideoPreview = ({
           className="hidden"
           onLoadedMetadata={handleVideoLoad}
           loop
-          muted
         />
         <canvas
           ref={canvasRef}

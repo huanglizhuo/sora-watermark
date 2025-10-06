@@ -1,6 +1,7 @@
 name = "sora-watermark"
 compatibility_date = "2024-06-30"
 workers_dev = true
+main = "worker.js"
 
 [[routes]]
 pattern = "soramark.clothpath.com/*"
