@@ -2,6 +2,10 @@ name = "sora-watermark"
 compatibility_date = "2024-06-30"
 workers_dev = true
 
+[[routes]]
+pattern = "sora-watermark.clothpath.com/*"
+zone_name = "clothpath.com"
+
 [build]
 command = "npm run build"
 
