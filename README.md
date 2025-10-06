@@ -1,6 +1,16 @@
 # Video Watermark Tool
 
-A client-side web application for adding animated watermarks to videos using FFmpeg WebAssembly. All processing happens in your browser - no server required!
+Add Sora watermark to your videos to generate fake Sora videos 😂.
+Of course, it's 100% client-side processing and you can replace the watermark with your own and define your own timeline.
+
+### Example Before/After
+
+Curious how the watermark looks once applied? The app includes an "Example Result" section at the top with two autoplaying videos, shown below using GitHub-supported HTML:
+
+| Original | Watermarked |
+| --- | --- |
+| ![Original sample](public/before.png) | ![Watermarked sample](public/after.png) |
+
 
 ## Features
 
@@ -14,6 +24,7 @@ A client-side web application for adding animated watermarks to videos using FFm
 - **Configurable**: Adjust watermark size and opacity
 - **Real-time Preview**: See watermark animation before processing
 - **Drag & Drop**: Easy file upload with drag and drop support
+- **Built-in Example**: Side-by-side before/after sample video that loops automatically
 
 ## Tech Stack
 
@@ -138,6 +149,7 @@ Requires a modern browser with WebAssembly support:
 src/
 ├── components/         # React components
 │   ├── FileUploader.tsx
+│   ├── ExampleComparison.tsx
 │   ├── PositionTimeline.tsx
 │   ├── PositionSegment.tsx
 │   ├── WatermarkConfig.tsx
