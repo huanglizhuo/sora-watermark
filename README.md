@@ -1,6 +1,6 @@
 # Video Watermark Tool
 
-Add Sora watermark to your videos to generate fake Sora videos 😂.
+Add Sora watermark to your videos to generate fake fake videos 😂.
 Of course, it's 100% client-side processing and you can replace the watermark with your own and define your own timeline.
 
 ### Example Before/After
@@ -25,6 +25,7 @@ Curious how the watermark looks once applied? The app includes an "Example Resul
 - **Real-time Preview**: See watermark animation before processing
 - **Drag & Drop**: Easy file upload with drag and drop support
 - **Built-in Example**: Side-by-side before/after sample video that loops automatically
+- **Open Source**: Explore and fork the project on [GitHub](https://github.com/huanglizhuo/sora-watermark)
 
 ## Tech Stack
 
@@ -174,6 +175,8 @@ src/
 3. **FFmpeg Command Generation**: Builds complex overlay filter expressions
 4. **Processing**: FFmpeg.wasm processes video entirely in browser
 5. **Download**: Resulting video is created as Blob and downloaded
+
+This workflow is fully open source—browse or contribute to the codebase on [GitHub](https://github.com/huanglizhuo/sora-watermark).
 
 The FFmpeg overlay filter uses time-based expressions to animate watermark position:
 

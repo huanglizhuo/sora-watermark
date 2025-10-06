@@ -11,6 +11,16 @@ import { WatermarkConfig, VideoMetadata } from './types/watermark';
 import { getVideoMetadata } from './utils/ffmpegConfig';
 import { generateSegmentId } from './utils/timelineHelper';
 
+const GitHubIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+    <path
+      fillRule="evenodd"
+      d="M12 1.5c-5.66 0-10.26 4.6-10.26 10.26 0 4.54 2.95 8.39 7.04 9.75.52.1.7-.22.7-.5 0-.25-.01-.9-.01-1.76-2.86.62-3.46-1.38-3.46-1.38-.47-1.2-1.15-1.52-1.15-1.52-.94-.64.07-.63.07-.63 1.04.07 1.59 1.07 1.59 1.07.92 1.58 2.4 1.12 2.98.86.09-.67.36-1.12.65-1.38-2.28-.26-4.68-1.14-4.68-5.07 0-1.12.4-2.04 1.06-2.76-.11-.26-.46-1.31.1-2.73 0 0 .86-.28 2.8 1.05a9.7 9.7 0 0 1 2.55-.34c.86 0 1.73.12 2.55.34 1.94-1.33 2.8-1.05 2.8-1.05.56 1.42.21 2.47.1 2.73.66.72 1.06 1.64 1.06 2.76 0 3.94-2.41 4.81-4.7 5.06.37.32.7.95.7 1.92 0 1.38-.01 2.5-.01 2.84 0 .28.18.61.7.5 4.08-1.36 7.03-5.21 7.03-9.75C22.26 6.1 17.66 1.5 12 1.5Z"
+      clipRule="evenodd"
+    />
+  </svg>
+);
+
 const THEME_STORAGE_KEY = 'theme-preference';
 
 const getStoredThemePreference = (): ThemePreference => {
@@ -195,12 +205,21 @@ function App() {
               <p className="mt-2 text-sm text-blue-600 dark:text-blue-400">Loading FFmpeg...</p>
             )}
           </div>
-          <div className="flex justify-center md:justify-end">
+          <div className="flex flex-wrap items-center justify-center gap-3 md:justify-end">
             <ThemeToggle
               theme={theme}
               resolvedTheme={resolvedTheme}
               onToggle={handleThemeToggle}
             />
+            <a
+              href="https://github.com/huanglizhuo/sora-watermark"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-md border border-gray-200 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800"
+            >
+              <GitHubIcon className="h-4 w-4" />
+              <span>View on GitHub</span>
+            </a>
           </div>
         </div>
 
