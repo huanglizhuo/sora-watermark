@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FileUploader } from './components/FileUploader';
+import { ExampleComparison } from './components/ExampleComparison';
 import { WatermarkConfigPanel } from './components/WatermarkConfig';
 import { PositionTimeline } from './components/PositionTimeline';
 import { VideoPreview } from './components/VideoPreview';
@@ -187,7 +188,8 @@ function App() {
           <div className="text-center md:text-left">
             <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">Watermark Tool</h1>
             <p className="mt-2 text-lg text-gray-600 dark:text-gray-300">
-              Add animated watermarks to your videos - 100% client-side processing
+              Add Sora watermark to your videos to generate fake Sora videos 😂. <br />
+              Of course, it's 100% client-side processing and you can replace the watermark with your own and define your own timeline.
             </p>
             {!loaded && status === 'loading' && (
               <p className="mt-2 text-sm text-blue-600 dark:text-blue-400">Loading FFmpeg...</p>
@@ -203,6 +205,8 @@ function App() {
         </div>
 
         <div className="space-y-6">
+          <ExampleComparison />
+
           {/* File Upload */}
           <FileUploader
             videoFile={videoFile}
@@ -276,8 +280,8 @@ function App() {
                       onClick={handleProcess}
                       disabled={!canProcess}
                       className={`px-6 py-3 rounded-md font-medium transition-colors ${canProcess
-                          ? 'bg-blue-600 text-white hover:bg-blue-700'
-                          : 'cursor-not-allowed bg-gray-300 text-gray-500 dark:bg-gray-700 dark:text-gray-400'
+                        ? 'bg-blue-600 text-white hover:bg-blue-700'
+                        : 'cursor-not-allowed bg-gray-300 text-gray-500 dark:bg-gray-700 dark:text-gray-400'
                         }`}
                     >
                       Process Video
