@@ -198,8 +198,9 @@ function App() {
           <div className="text-center md:text-left">
             <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">Sora Watermark Tool</h1>
             <p className="mt-2 text-lg text-gray-600 dark:text-gray-300">
-              Add Sora watermark to your videos to generate fake Sora videos 🤖. <br />
-              Trick your friends into thinking your video was made by Sora AI 😏. <br />
+              Everyone’s removing Sora logos… so we flipped the script. 😏 <br />
+              Add the Sora watermark to your own videos and make them look like the real deal.<br />
+              Perfect for demos, memes, or creative trolling. Ready to fake it till you make it? 🎞️<br />
               100% client-side processing and you can replace the watermark and define your own timeline.
             </p>
             {!loaded && status === 'loading' && (
