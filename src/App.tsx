@@ -196,10 +196,11 @@ function App() {
         {/* Header */}
         <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
           <div className="text-center md:text-left">
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">Watermark Tool</h1>
+            <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">Sora Watermark Tool</h1>
             <p className="mt-2 text-lg text-gray-600 dark:text-gray-300">
-              Add Sora watermark to your videos to generate fake Sora videos 😂. <br />
-              Of course, it's 100% client-side processing and you can replace the watermark with your own and define your own timeline.
+              Add Sora watermark to your videos to generate fake Sora videos 🤖. <br />
+              Trick your friends into thinking your video was made by Sora AI 😏. <br />
+              100% client-side processing and you can replace the watermark and define your own timeline.
             </p>
             {!loaded && status === 'loading' && (
               <p className="mt-2 text-sm text-blue-600 dark:text-blue-400">Loading FFmpeg...</p>
